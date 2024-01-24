@@ -13,7 +13,7 @@
     <br>
     <br>
 
-    <form action="index.php?controller=users&action=create" method="POST">
+    <form action="index.php?controller=users&action=create" method="POST" enctype="multipart/form-data">
         <fieldset>
             <legend>Information:</legend>
             First name:<br>
@@ -34,11 +34,10 @@
             <br>
             <br>
 
-            <form action="upload.php" method="post" enctype="multipart/form-data">
                 Select image to upload:
-                <input type="file" name="fileToUpload" id="fileToUpload">
+                <input type="file" name="image" id="fileToUpload">
                 <input type="submit" value="Upload Image" name="submit">
-            </form>
+
             <br>
             <br>
             <input type="submit" name="submit" value="submit">

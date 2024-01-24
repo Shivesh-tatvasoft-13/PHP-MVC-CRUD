@@ -16,7 +16,7 @@ class users
 
     private $gender;
 
-    private $upload;
+    private $uploadedFiles;
 
 
 
@@ -85,12 +85,14 @@ class users
         $this->gender = $gender;
     }
 
-    public function getupload(){
-        return $this->upload;
+    public function getupload()
+    {
+        return $this->uploadedFiles;
     }
 
-    public function setupload($upload){
-        $this->upload = $upload;
+    public function setupload($uploadedFiles)
+    {
+        $this->uploadedFiles = $uploadedFiles;
     }
 
 
@@ -98,8 +100,8 @@ class users
     {
         // A prepared statement is a feature used to execute the same (or similar) SQL statements repeatedly with high efficiency.
 
-        $saveCreated = $this->Connection->prepare("INSERT INTO " . $this->table . 
-        " (firstname,lastname,email,password,gender,upload) VALUES (:firstname,:lastname,:email,:password,:gender,:upload)");
+        $saveCreated = $this->Connection->prepare("INSERT INTO " . $this->table .
+            " (firstname,lastname,email,password,gender,uploadedFiles) VALUES (:firstname,:lastname,:email,:password,:gender,:uploadedFiles)");
         $createResult = $saveCreated->execute(
             array(
                 "firstname" => $this->firstname,
@@ -107,10 +109,10 @@ class users
                 "email" => $this->email,
                 "password" => $this->password,
                 "gender" => $this->gender,
-                "upload" => $this->upload
+                "uploadedFiles" => $this->uploadedFiles
             )
         );
-        $this->Connection =  null;
+        $this->Connection = null;
 
         return $createResult;
     }
@@ -118,21 +120,20 @@ class users
 
     public function update()
     {
-
-       $saveUpdate = $this->Connection->prepare
-       ("UPDATE " . $this->table . " SET firstname = :firstname,lastname = :lastname, email = :email,password = :password,gender = :gender WHERE id = :id " );
-
-        $updateResult = $saveUpdate->execute(array(
+        $saveUpdate = $this->Connection->prepare
+        ("UPDATE " . $this->table . " SET firstname = :firstname,lastname = :lastname, email = :email,password = :password,gender = :gender, uploadedFiles=:uploadedFiles WHERE id = :id ");
+        $updateResult = $saveUpdate->execute(
+            array(
                 "id" => $this->id,
                 "firstname" => $this->firstname,
                 "lastname" => $this->lastname,
                 "email" => $this->email,
                 "password" => $this->password,
-                "gender" => $this->gender
+                "gender" => $this->gender,
+                "uploadedFiles" => $this->uploadedFiles
             )
         );
-        $this->Connection =  null;
-
+        
         return $updateResult;
     }
 
@@ -141,7 +142,7 @@ class users
     public function read()
     {
         try {
-            $query = $this->Connection->prepare("SELECT * FROM " . $this->table );
+            $query = $this->Connection->prepare("SELECT * FROM " . $this->table);
             $query->execute();
             $readView = $query->fetchAll(PDO::FETCH_ASSOC);
             return $readView;
@@ -158,13 +159,13 @@ class users
     //         $fetchId->execute(
     //             array("id" => $id)
     //         );
-            
+
     //         $result_fetchId = (array) $fetchId->fetchObject();
 
     //         return $result_fetchId;
-            
+
     // }
-    
+
     public function getById($id)
     {
         $query = $this->Connection->prepare("SELECT * FROM " . $this->table . " WHERE id = :id");
@@ -174,17 +175,20 @@ class users
         );
 
         $result = (array) $query->fetchObject();
-     
+
         return $result;
     }
 
 
-    public function deleteById($id){
+    public function deleteById($id)
+    {
         try {
-            $deleteData= $this->Connection->prepare("DELETE FROM " . $this->table . " WHERE id = :id");
-            $deleteData->execute(array(
-                "id" => $id
-            ));
+            $deleteData = $this->Connection->prepare("DELETE FROM " . $this->table . " WHERE id = :id");
+            $deleteData->execute(
+                array(
+                    "id" => $id
+                )
+            );
             $Connection = null;
         } catch (Exception $e) {
             echo 'Failed DELETE (deleteById): ' . $e->getMessage();

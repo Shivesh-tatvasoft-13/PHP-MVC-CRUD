@@ -10,7 +10,7 @@
 <body>
 
     <h2>User Update Form</h2>
-    <form action="index.php?controller=user&action=save&id=<?php echo $entries['id'] ?>" method="post">
+    <form action="index.php?controller=user&action=update&id=<?php echo $entries['id'] ?>" method="post">
         <fieldset>
             <legend>Personal information:</legend>
             First name:<br>
@@ -35,6 +35,12 @@
                                                                     echo "checked";
                                                                 } ?>>Female
             <br><br>
+            Select image to upload:
+                <input type="file" name="image" id="fileToUpload"  value="<?php echo $entries["uploadedFiles"]; ?>">
+                <input type="submit" name="submit" value="Upload Image">
+                
+                <br>
+                <br>
             <input type="submit" value="update" name="update">
         </fieldset>
     </form>

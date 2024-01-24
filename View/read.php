@@ -20,6 +20,7 @@
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Gender</th>
+                    <th>Image</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -36,6 +37,8 @@
                         <td><?php echo $entry['lastname']; ?></td>
                         <td><?php echo $entry['email']; ?></td>
                         <td><?php echo $entry['gender']; ?></td>
+                        <td>
+                            <img src="" alt="" srcset="" name="image"> <?php echo $entry['uploadedFiles']; ?>
                         <td>
                             <a class="btn btn-success" href="index.php?controller=user&action=update&id=<?php echo $entry["id"] ?>">Edit</a>&nbsp;
                             <a class="btn btn-danger" href="index.php?controller=user&action=delete&id=<?php echo $entry["id"] ?>">Delete</a>
