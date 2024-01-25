@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <title>MVC CRUD - Read</title>
+    <style>
+        img{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+  
 </head>
 
 <body>
@@ -38,7 +45,8 @@
                         <td><?php echo $entry['email']; ?></td>
                         <td><?php echo $entry['gender']; ?></td>
                         <td>
-                            <img src="" alt="" srcset="" name="image"> <?php echo $entry['uploadedFiles']; ?>
+                            <?php echo $entry['image']; ?>
+                            <img src="upload/<?php echo $entry['image']; ?>" alt=""  name="image"> 
                         <td>
                             <a class="btn btn-success" href="index.php?controller=user&action=update&id=<?php echo $entry["id"] ?>">Edit</a>&nbsp;
                             <a class="btn btn-danger" href="index.php?controller=user&action=delete&id=<?php echo $entry["id"] ?>">Delete</a>

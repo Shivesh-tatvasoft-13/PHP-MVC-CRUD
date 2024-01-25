@@ -8,6 +8,7 @@ class users
     private $table = "users";
     private $Connection;
 
+
     private $id;
     private $firstname;
     private $lastname;
@@ -16,7 +17,7 @@ class users
 
     private $gender;
 
-    private $uploadedFiles;
+    private $image;
 
 
 
@@ -85,14 +86,14 @@ class users
         $this->gender = $gender;
     }
 
-    public function getupload()
+    public function getimage()
     {
-        return $this->uploadedFiles;
+        return $this->image;
     }
 
-    public function setupload($uploadedFiles)
+    public function setimage($image)
     {
-        $this->uploadedFiles = $uploadedFiles;
+        $this->image = $image;
     }
 
 
@@ -101,7 +102,7 @@ class users
         // A prepared statement is a feature used to execute the same (or similar) SQL statements repeatedly with high efficiency.
 
         $saveCreated = $this->Connection->prepare("INSERT INTO " . $this->table .
-            " (firstname,lastname,email,password,gender,uploadedFiles) VALUES (:firstname,:lastname,:email,:password,:gender,:uploadedFiles)");
+            " (firstname,lastname,email,password,gender,image) VALUES (:firstname,:lastname,:email,:password,:gender,:image)");
         $createResult = $saveCreated->execute(
             array(
                 "firstname" => $this->firstname,
@@ -109,7 +110,7 @@ class users
                 "email" => $this->email,
                 "password" => $this->password,
                 "gender" => $this->gender,
-                "uploadedFiles" => $this->uploadedFiles
+                "image" => $this->image
             )
         );
         $this->Connection = null;
@@ -121,7 +122,7 @@ class users
     public function update()
     {
         $saveUpdate = $this->Connection->prepare
-        ("UPDATE " . $this->table . " SET firstname = :firstname,lastname = :lastname, email = :email,password = :password,gender = :gender, uploadedFiles=:uploadedFiles WHERE id = :id ");
+        ("UPDATE " . $this->table . " SET firstname = :firstname,lastname = :lastname, email = :email,password = :password,gender = :gender, image=:image WHERE id = :id ");
         $updateResult = $saveUpdate->execute(
             array(
                 "id" => $this->id,
@@ -130,10 +131,11 @@ class users
                 "email" => $this->email,
                 "password" => $this->password,
                 "gender" => $this->gender,
-                "uploadedFiles" => $this->uploadedFiles
+                "image" => $this->image
             )
         );
-        
+        $this->Connection =  null;
+
         return $updateResult;
     }
 
@@ -189,7 +191,7 @@ class users
                     "id" => $id
                 )
             );
-            $Connection = null;
+            
         } catch (Exception $e) {
             echo 'Failed DELETE (deleteById): ' . $e->getMessage();
             return -1;

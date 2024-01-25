@@ -10,7 +10,12 @@
 <body>
 
     <h2>User Update Form</h2>
-    <form action="index.php?controller=user&action=update&id=<?php echo $entries['id'] ?>" method="post">
+    <a href="index.php?controller=users&action=read">User's List</a>
+    <br>
+    <br>
+    <a href="index.php?controller=users&action=index">Create new user</a>
+
+    <form action="index.php?controller=user&action=save&id=<?php echo $entries['id'] ?>" method="POST" enctype="multipart/form-data">
         <fieldset>
             <legend>Personal information:</legend>
             First name:<br>
@@ -36,9 +41,7 @@
                                                                 } ?>>Female
             <br><br>
             Select image to upload:
-                <input type="file" name="image" id="fileToUpload"  value="<?php echo $entries["uploadedFiles"]; ?>">
-                <input type="submit" name="submit" value="Upload Image">
-                
+                <input type="file" name="image" id="fileToUpload" value="upload/<?php echo $entries["image"] ?>" required>        
                 <br>
                 <br>
             <input type="submit" value="update" name="update">
